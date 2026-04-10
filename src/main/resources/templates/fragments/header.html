@@ -1,0 +1,74 @@
+<!--
+    HEADER FRAGMENT
+    ================
+    This is a reusable navigation bar included on every page.
+    
+    Thymeleaf Fragments work like "includes" — you define a piece of HTML once
+    and reuse it across multiple pages. This keeps your code DRY (Don't Repeat Yourself).
+    
+    THYMELEAF SECURITY TAGS:
+    - sec:authorize="isAuthenticated()"  → Show only when user is logged in
+    - sec:authorize="hasRole('ADMIN')"   → Show only for admin users
+    - sec:authentication="name"          → Display the logged-in user's name
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- th:fragment="header" defines this as a reusable fragment named "header" -->
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <!-- Brand/Logo -->
+        <a class="navbar-brand" th:href="@{/dashboard}">
+            <i class="bi bi-mortarboard-fill"></i>
+            StudentMS
+        </a>
+
+        <!-- Mobile toggle button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <!-- Dashboard link -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dashboard}">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                </li>
+                <!-- Students link -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/students}">
+                        <i class="bi bi-people"></i> Students
+                    </a>
+                </li>
+                <!-- Add Student link -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/students/add}">
+                        <i class="bi bi-person-plus"></i> Add Student
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right side: User info & Logout -->
+            <ul class="navbar-nav ms-auto" sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <span class="nav-link nav-user-info">
+                        <i class="bi bi-person-circle"></i>
+                        <span sec:authentication="name">user@email.com</span>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</html>
