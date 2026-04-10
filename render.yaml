@@ -1,0 +1,12 @@
+# Render Blueprint - Auto-deploy configuration
+services:
+  - type: web
+    name: student-management-system
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: h2
+      - key: SERVER_PORT
+        value: 8080
